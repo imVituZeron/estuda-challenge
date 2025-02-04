@@ -1,0 +1,24 @@
+networks:
+  estuda:
+    external: true
+
+services:  
+  app:
+    image: estuda-app
+    container_name: estuda-app
+    command: flask --app main run --host=172.28.0.2
+    networks:
+      estuda:
+        ipv4_address: 172.28.0.2
+
+  mysql:
+    image: mysql:8.0  
+    container_name: estuda-database
+    ports:
+    - 3306:3306
+    environment:
+    - MYSQL_ROOT_PASSWORD=bi7d2lyFNV9ZwjB3
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      estuda:
+        ipv4_address: 172.28.0.3
