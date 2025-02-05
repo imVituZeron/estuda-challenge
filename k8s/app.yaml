@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estuda-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estuda-app
+  template:
+    metadata:
+      labels:
+        app: estuda-app
+    spec:
+      containers:
+      - name: estuda-app-pod
+        image: vitrolagalaxy/estuda-app:latest
+        command: ["flask", "--app", "main", "run"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi

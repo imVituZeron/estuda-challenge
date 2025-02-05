@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estuda-mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estuda-mysql
+  template:
+    metadata:
+      labels:
+        app: estuda-mysql
+    spec:
+      containers:
+      - name: estuda-mysql-pod
+        image: mysql:8.0
+        ports:
+          - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        command: ["mysqld", "--default-character-set=utf8"]
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
