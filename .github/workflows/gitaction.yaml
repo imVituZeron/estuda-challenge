@@ -13,8 +13,8 @@ jobs:
       - name: Build and push image
         run: |
           docker build -t estuda-app .
-          docker tag estuda-app:latest ${{ secrets.DOCKERHUB_NAME }}/estuda-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/estuda-app:latest
+          docker tag estuda-app:latest vitrolagalaxy/estuda-app:latest
+          docker push vitrolagalaxy/estuda-app:latest
 
       # - name: Login to Google Cloud Container Registry (GCR)
       #   uses: google/cloud-sdk@v4
