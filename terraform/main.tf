@@ -1,11 +1,36 @@
 provider "google" {
-  project = "careful-memory-449901-f9"
+  project = var.project_id
   region  = "us-central1"
 }
 
+# standard sql instance
+resource "google_sql_database_instance" "db_instance" {
+  name                = var.instance_name
+  region              = "us-central1"
+  database_version   = var.db_version
+
+  settings {
+    tier = "db-f1-micro"
+  }
+}
+
+resource "google_sql_database" "database" {
+  name     = var.database_name
+  instance = google_sql_database_instance.db_instance.name
+}
+
+resource "null_resource" "db_setup" {
+  depends_on = [google_sql_database_instance.db_instance]
+
+  provisioner "local-exec" {
+    command = var.null_resource_command
+  }
+}
+
+
 # standard computer instance
 resource "google_compute_instance" "app" {
-  name         = "estuda-app"
+  name         = var.app_name
   machine_type = "e2-micro"
   zone         = "us-central1-a"
 
@@ -28,6 +53,10 @@ resource "google_compute_instance" "app" {
   #     "ssh-publickey ${aws_key_pair.example.public_key}"
   #   ]
   # }
+
+  depends_on = [
+    google_sql_database_instance.db_instance
+  ]
 }
 
 # resource "google_compute Firewall Rule" "example" {
@@ -47,20 +76,4 @@ resource "google_compute_instance" "app" {
 #   subnets    = ["30.105.0.0/24"]
 #   auto_create_subnets = true
 # }
-
-# standard sql instance
-resource "google_sql_database_instance" "sql_instance" {
-  name                = "estuda"
-  region              = "us-central1"
-  database_version   = "MYSQL_8_0"
-
-  settings {
-    tier = "db-f1-micro"
-  }
-}
-
-resource "google_sql_database" "database" {
-  name     = "estuda_clients"
-  instance = google_sql_database_instance.sql_instance.name
-}
 
