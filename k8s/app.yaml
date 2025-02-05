@@ -15,7 +15,9 @@ spec:
       containers:
       - name: estuda-app-pod
         image: vitrolagalaxy/estuda-app:latest
-        command: ["flask", "--app", "main", "run"]
+        command: ["flask", "--app", "main", "run", "--host=0.0.0.0"]
+        ports: 
+        - containerPort: 5000
         resources:
           requests:
             cpu: 100m
