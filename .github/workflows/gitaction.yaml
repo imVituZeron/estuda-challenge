@@ -22,12 +22,6 @@ jobs:
           docker tag estuda-app:latest ${{ vars.DOCKERHUB_USERNAME }}/estuda-app:latest
           docker push ${{ vars.DOCKERHUB_USERNAME }}/estuda-app:latest
 
-      # - name: Login to Google Cloud Container Registry (GCR)
-      #   uses: google/cloud-sdk@v4
-      #   with:
-      #     credentials: ${{ secrets.GITHUB_TOKEN }}
-      #     project_id: your-project-id
-
       # - name: Execute Terraform script
       #   run: |
       #     terraform init -reconfigure \
