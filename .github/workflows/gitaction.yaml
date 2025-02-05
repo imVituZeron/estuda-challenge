@@ -15,21 +15,21 @@ jobs:
         with:
           groups: ['build']
 
-      - name: Login to Google Cloud Container Registry (GCR)
-        uses: google/cloud-sdk@v4
-        with:
-          credentials: ${{ secrets.GITHUB_TOKEN }}
-          project_id: your-project-id
-
       - name: Build and push image
         run: |
-          docker build -t my-python-app .
-          docker tag my-python-app:latest ${{ secrets.DOCKER_USERNAME }}/my-python-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-python-app:latest
+          docker build -t estuda-app .
+          docker tag estuda-app:latest ${{ secrets.DOCKERHUB_NAME }}/estuda-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/estuda-app:latest
 
-      - name: Execute Terraform script
-        run: |
-          terraform init -reconfigure \
-            -working-directory=. \
-            -input=false
-          terraform apply -auto-approve
+      # - name: Login to Google Cloud Container Registry (GCR)
+      #   uses: google/cloud-sdk@v4
+      #   with:
+      #     credentials: ${{ secrets.GITHUB_TOKEN }}
+      #     project_id: your-project-id
+
+      # - name: Execute Terraform script
+      #   run: |
+      #     terraform init -reconfigure \
+      #       -working-directory=. \
+      #       -input=false
+      #     terraform apply -auto-approve
