@@ -28,10 +28,19 @@ variable "database_name" {
   default     = "estuda_clients"
 }
 
+variable "db_user" {
+  description = "user informatio"
+  type        = list(string)
+  default = [
+    "root",
+    "bi7d2lyFNV9ZwjB3"
+  ]
+}
+
 variable "null_resource_command" {
   description = "null resource command"
   type        = string
-  default     = "sh db_setup.sh 0.0.0.0 root bi7d2lyFNV9ZwjB3 estuda_clients"
+  default     = "sh db_setup.sh"
 }
 
 

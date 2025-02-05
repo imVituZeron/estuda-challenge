@@ -14,6 +14,12 @@ resource "google_sql_database_instance" "db_instance" {
   }
 }
 
+resource "google_sql_user" "users" {
+  name     = var.db_user[0]
+  instance = google_sql_database_instance.db_instance.name
+  password = var.db_user[1]
+}
+
 resource "google_sql_database" "database" {
   name     = var.database_name
   instance = google_sql_database_instance.db_instance.name
