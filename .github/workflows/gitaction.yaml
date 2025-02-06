@@ -31,10 +31,10 @@ jobs:
           terraform_wrapper: false 
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=terraform init
 
       - name: Terraform Validate
-        run: terraform validate
+        run: terraform -chdir=terraform validate
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan -no-color -out=tfplan
