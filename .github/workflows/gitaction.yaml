@@ -37,8 +37,8 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -no-color -out=tfplan
+        run: terraform -chdir=terraform plan -no-color -out=tfplan
         continue-on-error: true # Allow the workflow to continue even if plan fails
 
       - name: Terraform Apply
-        run: terraform apply tfplan
+        run: terraform -chdir=terraform apply tfplan
