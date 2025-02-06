@@ -4,8 +4,8 @@ Aqui foi testado alguns conhecimento como: *Docker*, *GitHub Action*, *Git*, *Te
 
 Foi dividido em *steps* que não precisam ser executados sequecialemente, mas as coisas dentro dos steps precisam sim.
 
-[!WARNING] - Pré-requisitos
-Ferramentas que foram instaladas para a execução desse **challenge**
+>[!WARNING] - Pré-requisitos
+> Ferramentas que foram instaladas para a execução desse **challenge**
 >- [Docker](https://docs.docker.com/engine/install/)
 >- [Docker-compose]()
 >- [Terraform](https://developer.hashicorp.com/terraform/install)
