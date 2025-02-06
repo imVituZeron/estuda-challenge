@@ -7,6 +7,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # Used to Github see all file into repo
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -16,6 +17,7 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # in this step the github build the image, tagged it and push it to dockerhub
       - name: Build and push image
         run: |
           docker build -t estuda-app .
