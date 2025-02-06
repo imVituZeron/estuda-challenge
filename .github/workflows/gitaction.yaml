@@ -24,10 +24,21 @@ jobs:
           docker tag estuda-app:latest ${{ vars.DOCKERHUB_USERNAME }}/estuda-app:latest
           docker push ${{ vars.DOCKERHUB_USERNAME }}/estuda-app:latest
 
-      - name: Execute Terraform script
-        run: |
-          cd terraform
-          terraform init -reconfigure \
-            -working-directory=. \
-            -input=false
-          terraform apply -auto-approve
+      # initialing the terraform execution
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false 
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -no-color -out=tfplan
+        continue-on-error: true # Allow the workflow to continue even if plan fails
+
+      - name: Terraform Apply
+        run: terraform apply tfplan
